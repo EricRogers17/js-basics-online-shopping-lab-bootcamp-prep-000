@@ -100,7 +100,7 @@ function removeFromCart(item) {
       cartCheck = false
     }
   }
-  for(let j=0; j < cart.length; j++) { 
+  for(let j=0; j < cart.length; j++) {
     // loop through the cart again to find the item
     itemObj = cart[j]
     itemArray = Object.keys(itemObj)
@@ -111,7 +111,7 @@ function removeFromCart(item) {
       cart = cartUpdate
     }
   }
-  // if the item isn't in the car this will trigger the 
+  // if the item isn't in the car this will trigger the
   // log statement
   if(cartCheck === true) {
     console.log('That item is not in your cart.')
