@@ -10,8 +10,11 @@ function setCart(c) {
 }
 
 function addToCart(item) {
+  // generate random price
   var itemPrice = Math.floor(Math.random() * 100)
+  // assign info to new object
   var newItem = {[item]: itemPrice};
+  // add item to cart array
   cart.push(newItem)
   console.log(item + ' has been added to your cart.')
   return cart
@@ -23,10 +26,12 @@ function viewCart() {
   var itemArray = []
   var item = undefined
   var itemPrice = undefined
-  if (cart.length === 0) {
+  if (cart.length === 0) { // if the cart is empty...
     console.log('Your shopping cart is empty.')
-  }else if(cart.length === 1) {
+  }else if(cart.length === 1) { // if the cart only has one item...
     for(let i=0; i<cart.length; i++) {
+      // The next four lines describe how I extract the information from
+      // the array of objects in the cart
       itemObj = cart[i]
       itemArray = Object.keys(itemObj)
       item = itemArray[0]
@@ -34,8 +39,7 @@ function viewCart() {
       returnStatement = `In your cart, you have ${item} at $${itemPrice}.`
       console.log(returnStatement)
     }
-    //console.log(returnStatement)
-  }else if(cart.length === 2) {
+  }else if(cart.length === 2) { // two items in cart
     for(let i=0; i<cart.length; i++) {
       itemObj = cart[i]
       itemArray = Object.keys(itemObj)
@@ -47,9 +51,7 @@ function viewCart() {
       }
       returnStatement = returnStatement + `${item} at $${itemPrice}`
     }
-
-  }else if(cart.length >= 3) {
-    // In your cart, you have bananas at $17, pancake batter at $5, and eggs at $49.
+  }else if(cart.length >= 3) { // Three or more items in cart
      for(let i=0; i<cart.length; i++) {
       itemObj = cart[i]
       itemArray = Object.keys(itemObj)
@@ -66,6 +68,7 @@ function viewCart() {
 }
 
 function total() {
+  // Using the same methods from the viewChart() to extract prices from items in cart
   var itemObj = {}
   var itemArray = []
   var item = undefined
@@ -90,21 +93,26 @@ function removeFromCart(item) {
   var itemArray = []
   var itemRef = undefined
   var cartCheck = true
+  // loop through cart to check for item to be removed
   for(let i=0; i < cart.length; i++) {
+    // if the item is in the cart switch the cartCheck bool
     if(cart[i].hasOwnProperty(item) === true) {
       cartCheck = false
     }
   }
-  for(let j=0; j < cart.length; j++) {
+  for(let j=0; j < cart.length; j++) { 
+    // loop through the cart again to find the item
     itemObj = cart[j]
     itemArray = Object.keys(itemObj)
     itemRef = itemArray[0]
-    //if(cart[j].hasOwnProperty(item) === true)
+    // if the item is in the cart remove it and update the cart
     if(itemRef === item) {
       var cartUpdate = [...cart.slice(0,j), ...cart.slice(j+1)]
       cart = cartUpdate
     }
   }
+  // if the item isn't in the car this will trigger the 
+  // log statement
   if(cartCheck === true) {
     console.log('That item is not in your cart.')
   }
@@ -113,6 +121,7 @@ function removeFromCart(item) {
 
 function placeOrder(cardNumber) {
   var cartTotal = 0
+  // if there's a card number, "charge" the card and empty the cart
   if(cardNumber) {
     cartTotal = total()
     console.log(`Your total cost is $${cartTotal}, which will be charged to the card ${cardNumber}.`)
