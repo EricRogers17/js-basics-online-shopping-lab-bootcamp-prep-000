@@ -89,23 +89,25 @@ function removeFromCart(item) {
   var itemObj = {}
   var itemArray = []
   var itemRef = undefined
-  
+  var cartCheck = true
   for(let i=0; i < cart.length; i++) {
-    if(cart[i].hasOwnProperty(item) === false) {
-      console.log('That item is not in your cart')
-      return cart
-    } else {
-      for(let j=0; j < cart.length; j++) {
-        itemObj = cart[j]
-        itemArray = Object.keys(itemObj)
-        itemRef = itemArray[0]
-        //if(cart[j].hasOwnProperty(item) === true)
-        if(itemRef === item) {
-          var cartUpdate = [...cart.slice(0,j), ...cart.slice(i+j)]
-          cart = cartUpdate
-        }
-      }
+    if(cart[i].hasOwnProperty(item) === true) {
+      cartCheck = false
     }
+  }
+  for(let j=0; j < cart.length; j++) {
+    itemObj = cart[j]
+    itemArray = Object.keys(itemObj)
+    itemRef = itemArray[0]
+    //if(cart[j].hasOwnProperty(item) === true)
+    if(itemRef === item) {
+      var cartUpdate = [...cart.slice(0,j), ...cart.slice(j+1)]
+      cart = cartUpdate
+    }
+  }
+  if(cartCheck === true) {
+    console.log('That item is not in your cart.')
+  }
   return cart
 }
 
